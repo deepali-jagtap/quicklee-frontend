@@ -9,11 +9,13 @@ export default function TrelloDashboard() {
     pickupEntity: string;
     pickupAddressLine1: string;
     pickupAddressLine2: string;
-    pickupArea: string;
+    pickupSuburbanArea: string;
+    pickupSuburb: string;
     deliveryEntity: string;
     deliveryAddressLine1: string;
     deliveryAddressLine2: string;
-    deliveryArea: string;
+    deliverySuburbanArea: string;
+    deliverySuburb: string;
     contact: string;
     priority: string;
     chargingTo: string;
@@ -42,7 +44,13 @@ export default function TrelloDashboard() {
     { id: 5, name: 'Bulk Delivery', price: 150.00 }
   ];
 
-  const areaOptions = ['are1', 'are2', 'area3'];
+  const SUBURBAN_AREAS: { [key: string]: string[] } = {
+    "Northern Suburbs": ["Yanchep", "Alkimos", "Eglinton"],
+    "Eastern Suburbs": ["Beechboro", "Bennett Springs", "Dayton"],
+    "Western Suburbs": ["North Beach", "Watermans Bay", "Marmion"],
+    "Central & South Central Suburbs": ["Dianella", "Yokine", "Westminster", "Balcatta"],
+    "Southern Suburbs and Mandurah Region": ["Port Kennedy", "Baldivis", "Warnbro"]
+  };
 
   const generateJobId = () => {
     return `JOB-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
@@ -59,12 +67,14 @@ export default function TrelloDashboard() {
           pickupEntity: 'Tech Store Sydney',
           pickupAddressLine1: '123 George St',
           pickupAddressLine2: '',
-          pickupArea: 'are1',
+          pickupSuburbanArea: 'Northern Suburbs',
+          pickupSuburb: 'Yanchep',
           deliveryEntity: 'ABC Corp',
           contact: '+61 2 9876 5432',
           deliveryAddressLine1: '456 Pitt St',
           deliveryAddressLine2: 'Level 5',
-          deliveryArea: 'are2',
+          deliverySuburbanArea: 'Eastern Suburbs',
+          deliverySuburb: 'Beechboro',
           priority: 'red',
           chargingTo: 'Receiver',
           pricing: 1,
@@ -83,12 +93,14 @@ export default function TrelloDashboard() {
           pickupEntity: 'Law Firm Melbourne',
           pickupAddressLine1: '789 Collins St',
           pickupAddressLine2: 'Suite 10',
-          pickupArea: 'area3',
+          pickupSuburbanArea: 'Western Suburbs',
+          pickupSuburb: 'North Beach',
           deliveryEntity: 'Court House',
           contact: '+61 3 8765 4321',
           deliveryAddressLine1: '321 Lonsdale St',
           deliveryAddressLine2: '',
-          deliveryArea: 'are1',
+          deliverySuburbanArea: 'Northern Suburbs',
+          deliverySuburb: 'Alkimos',
           priority: 'yellow',
           chargingTo: 'Sender',
           pricing: 2,
@@ -113,12 +125,14 @@ export default function TrelloDashboard() {
           pickupEntity: 'MedSupply Co',
           pickupAddressLine1: '111 Crown St',
           pickupAddressLine2: '',
-          pickupArea: 'are2',
+          pickupSuburbanArea: 'Central & South Central Suburbs',
+          pickupSuburb: 'Dianella',
           deliveryEntity: 'City Hospital',
           contact: '+61 2 9111 2222',
           deliveryAddressLine1: '222 Health Ave',
           deliveryAddressLine2: 'Building B',
-          deliveryArea: 'are3',
+          deliverySuburbanArea: 'Southern Suburbs and Mandurah Region',
+          deliverySuburb: 'Port Kennedy',
           priority: 'red',
           chargingTo: 'Receiver',
           pricing: 3,
@@ -143,12 +157,14 @@ export default function TrelloDashboard() {
           pickupEntity: 'Fashion Boutique',
           pickupAddressLine1: '555 Oxford St',
           pickupAddressLine2: 'Shop 2',
-          pickupArea: 'are1',
+          pickupSuburbanArea: 'Eastern Suburbs',
+          pickupSuburb: 'Bennett Springs',
           deliveryEntity: 'Customer Residence',
           contact: '+61 4 3333 4444',
           deliveryAddressLine1: '888 Park Rd',
           deliveryAddressLine2: '',
-          deliveryArea: 'are2',
+          deliverySuburbanArea: 'Western Suburbs',
+          deliverySuburb: 'Watermans Bay',
           priority: 'green',
           chargingTo: 'Sender',
           pricing: 1,
@@ -173,12 +189,14 @@ export default function TrelloDashboard() {
           pickupEntity: 'University Bookstore',
           pickupAddressLine1: '999 Campus Dr',
           pickupAddressLine2: 'Building 5',
-          pickupArea: 'are3',
+          pickupSuburbanArea: 'Southern Suburbs and Mandurah Region',
+          pickupSuburb: 'Baldivis',
           deliveryEntity: 'Student Housing',
           contact: '+61 4 5555 6666',
           deliveryAddressLine1: '777 College Ave',
           deliveryAddressLine2: 'Room 101',
-          deliveryArea: 'are1',
+          deliverySuburbanArea: 'Central & South Central Suburbs',
+          deliverySuburb: 'Yokine',
           priority: 'green',
           chargingTo: 'Receiver',
           pricing: 1,
@@ -205,11 +223,13 @@ export default function TrelloDashboard() {
     pickupEntity: '',
     pickupAddressLine1: '',
     pickupAddressLine2: '',
-    pickupArea: 'are1',
+    pickupSuburbanArea: '',
+    pickupSuburb: '',
     deliveryEntity: '',
     deliveryAddressLine1: '',
     deliveryAddressLine2: '',
-    deliveryArea: 'are1',
+    deliverySuburbanArea: '',
+    deliverySuburb: '',
     contact: '',
     priority: 'green',
     chargingTo: 'Sender',
@@ -272,11 +292,13 @@ export default function TrelloDashboard() {
       pickupEntity: '',
       pickupAddressLine1: '',
       pickupAddressLine2: '',
-      pickupArea: 'are1',
+      pickupSuburbanArea: 'Northern Suburbs',
+      pickupSuburb: 'Yanchep',
       deliveryEntity: '',
       deliveryAddressLine1: '',
       deliveryAddressLine2: '',
-      deliveryArea: 'are1',
+      deliverySuburbanArea: 'Northern Suburbs',
+      deliverySuburb: 'Yanchep',
       contact: '',
       priority: 'green',
       chargingTo: 'Sender',
@@ -316,11 +338,13 @@ export default function TrelloDashboard() {
       pickupEntity: card.pickupEntity,
       pickupAddressLine1: card.pickupAddressLine1,
       pickupAddressLine2: card.pickupAddressLine2,
-      pickupArea: card.pickupArea,
+      pickupSuburbanArea: card.pickupSuburbanArea,
+      pickupSuburb: card.pickupSuburb,
       deliveryEntity: card.deliveryEntity,
       deliveryAddressLine1: card.deliveryAddressLine1,
       deliveryAddressLine2: card.deliveryAddressLine2,
-      deliveryArea: card.deliveryArea,
+      deliverySuburbanArea: card.deliverySuburbanArea,
+      deliverySuburb: card.deliverySuburb,
       contact: card.contact,
       priority: card.priority,
       chargingTo: card.chargingTo,
@@ -436,7 +460,7 @@ export default function TrelloDashboard() {
                       <div>
                         <div className="font-medium text-gray-800">{card.pickupEntity}</div>
                         <div className="text-gray-500 text-xs">
-                          {[card.pickupAddressLine1, card.pickupAddressLine2, card.pickupArea].filter(Boolean).join(', ')}
+                          {[card.pickupAddressLine1, card.pickupAddressLine2, card.pickupSuburb, card.pickupSuburbanArea].filter(Boolean).join(', ')}
                         </div>
                       </div>
                     </div>
@@ -445,7 +469,7 @@ export default function TrelloDashboard() {
                       <div>
                         <div className="font-medium text-gray-800">{card.deliveryEntity}</div>
                         <div className="text-gray-500 text-xs">
-                          {[card.deliveryAddressLine1, card.deliveryAddressLine2, card.deliveryArea].filter(Boolean).join(', ')}
+                          {[card.deliveryAddressLine1, card.deliveryAddressLine2, card.deliverySuburb, card.deliverySuburbanArea].filter(Boolean).join(', ')}
                         </div>
                       </div>
                     </div>
@@ -593,16 +617,43 @@ export default function TrelloDashboard() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Pickup Area
+                    Pickup Suburban Area
                   </label>
                   <select
-                    value={editForm.pickupArea}
-                    onChange={(e) => setEditForm({ ...editForm, pickupArea: e.target.value })}
+                    value={editForm.pickupSuburbanArea}
+                    onChange={(e) => {
+                      const newArea = e.target.value;
+                      setEditForm({
+                        ...editForm,
+                        pickupSuburbanArea: newArea,
+                        pickupSuburb: SUBURBAN_AREAS[newArea]?.[0] || ''
+                      });
+                    }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
                   >
-                    {areaOptions.map(area => (
+                    <option value="">Select Area</option>
+                    {Object.keys(SUBURBAN_AREAS).map(area => (
                       <option key={area} value={area}>
                         {area}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Pickup Suburb
+                  </label>
+                  <select
+                    value={editForm.pickupSuburb}
+                    onChange={(e) => setEditForm({ ...editForm, pickupSuburb: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                    disabled={!editForm.pickupSuburbanArea}
+                  >
+                    <option value="">Select Suburb</option>
+                    {editForm.pickupSuburbanArea && SUBURBAN_AREAS[editForm.pickupSuburbanArea]?.map(suburb => (
+                      <option key={suburb} value={suburb}>
+                        {suburb}
                       </option>
                     ))}
                   </select>
@@ -666,16 +717,43 @@ export default function TrelloDashboard() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Delivery Area
+                    Delivery Suburban Area
                   </label>
                   <select
-                    value={editForm.deliveryArea}
-                    onChange={(e) => setEditForm({ ...editForm, deliveryArea: e.target.value })}
+                    value={editForm.deliverySuburbanArea}
+                    onChange={(e) => {
+                      const newArea = e.target.value;
+                      setEditForm({
+                        ...editForm,
+                        deliverySuburbanArea: newArea,
+                        deliverySuburb: SUBURBAN_AREAS[newArea]?.[0] || ''
+                      });
+                    }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
                   >
-                    {areaOptions.map(area => (
+                    <option value="">Select Area</option>
+                    {Object.keys(SUBURBAN_AREAS).map(area => (
                       <option key={area} value={area}>
                         {area}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Delivery Suburb
+                  </label>
+                  <select
+                    value={editForm.deliverySuburb}
+                    onChange={(e) => setEditForm({ ...editForm, deliverySuburb: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                    disabled={!editForm.deliverySuburbanArea}
+                  >
+                    <option value="">Select Suburb</option>
+                    {editForm.deliverySuburbanArea && SUBURBAN_AREAS[editForm.deliverySuburbanArea]?.map(suburb => (
+                      <option key={suburb} value={suburb}>
+                        {suburb}
                       </option>
                     ))}
                   </select>
