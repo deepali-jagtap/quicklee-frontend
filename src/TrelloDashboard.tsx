@@ -1,217 +1,15 @@
 import React, { useState } from 'react';
 import { Plus, X, MoreHorizontal, Package, MapPin, User } from 'lucide-react';
+import { Card } from './types';
+import { useBoardData } from './hooks/useBoardData';
+import { availableDrivers, pricingOptions, SUBURBAN_AREAS } from './constants';
 
 export default function TrelloDashboard() {
-
-  interface Card {
-    jobId: string;
-    parcelDescription: string;
-    pickupEntity: string;
-    pickupAddressLine1: string;
-    pickupAddressLine2: string;
-    pickupSuburbanArea: string;
-    pickupSuburb: string;
-    deliveryEntity: string;
-    deliveryAddressLine1: string;
-    deliveryAddressLine2: string;
-    deliverySuburbanArea: string;
-    deliverySuburb: string;
-    contact: string;
-    priority: string;
-    chargingTo: string;
-    pricing: number;
-    manuallyInvoice: string;
-    source: string;
-    createdBy: string;
-    driverId: string;
-    driverAssignedCount: number;
-    status: string;
-    createdDateTime: string;
-    updatedDateTime: string;
-  }
-
-  interface Board {
-    id: number;
-    title: string;
-    cards: Card[];
-  }
-  const availableDrivers = ['Driver-001', 'Driver-002', 'Driver-003', 'Driver-004', 'Driver-005'];
-  const pricingOptions = [
-    { id: 1, name: 'Standard Delivery', price: 25.00 },
-    { id: 2, name: 'Express Delivery', price: 45.00 },
-    { id: 3, name: 'Same Day Delivery', price: 65.00 },
-    { id: 4, name: 'Overnight Delivery', price: 35.00 },
-    { id: 5, name: 'Bulk Delivery', price: 150.00 }
-  ];
-
-  const SUBURBAN_AREAS: { [key: string]: string[] } = {
-    "Northern Suburbs": ["Yanchep", "Alkimos", "Eglinton"],
-    "Eastern Suburbs": ["Beechboro", "Bennett Springs", "Dayton"],
-    "Western Suburbs": ["North Beach", "Watermans Bay", "Marmion"],
-    "Central & South Central Suburbs": ["Dianella", "Yokine", "Westminster", "Balcatta"],
-    "Southern Suburbs and Mandurah Region": ["Port Kennedy", "Baldivis", "Warnbro"]
-  };
+  const { boards, isLoading, error, addCard, updateCard, deleteCard, moveCard } = useBoardData();
 
   const generateJobId = () => {
     return `JOB-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
   };
-
-  const [boards, setBoards] = useState<Board[]>([
-    {
-      id: 1,
-      title: 'Pending',
-      cards: [
-        {
-          jobId: 'JOB-1704800001-123',
-          parcelDescription: 'Electronics Package - Laptop',
-          pickupEntity: 'Tech Store Sydney',
-          pickupAddressLine1: '123 George St',
-          pickupAddressLine2: '',
-          pickupSuburbanArea: 'Northern Suburbs',
-          pickupSuburb: 'Yanchep',
-          deliveryEntity: 'ABC Corp',
-          contact: '+61 2 9876 5432',
-          deliveryAddressLine1: '456 Pitt St',
-          deliveryAddressLine2: 'Level 5',
-          deliverySuburbanArea: 'Eastern Suburbs',
-          deliverySuburb: 'Beechboro',
-          priority: 'red',
-          chargingTo: 'Receiver',
-          pricing: 1,
-          manuallyInvoice: 'No',
-          source: 'Website',
-          createdBy: 'John Smith',
-          driverId: '',
-          driverAssignedCount: 0,
-          status: 'Pending',
-          createdDateTime: new Date('2024-01-09T09:30:00').toISOString(),
-          updatedDateTime: new Date('2024-01-09T09:30:00').toISOString()
-        },
-        {
-          jobId: 'JOB-1704800002-456',
-          parcelDescription: 'Documents - Legal Papers',
-          pickupEntity: 'Law Firm Melbourne',
-          pickupAddressLine1: '789 Collins St',
-          pickupAddressLine2: 'Suite 10',
-          pickupSuburbanArea: 'Western Suburbs',
-          pickupSuburb: 'North Beach',
-          deliveryEntity: 'Court House',
-          contact: '+61 3 8765 4321',
-          deliveryAddressLine1: '321 Lonsdale St',
-          deliveryAddressLine2: '',
-          deliverySuburbanArea: 'Northern Suburbs',
-          deliverySuburb: 'Alkimos',
-          priority: 'yellow',
-          chargingTo: 'Sender',
-          pricing: 2,
-          manuallyInvoice: 'Yes',
-          source: 'Phone',
-          createdBy: 'Sarah Johnson',
-          driverId: '',
-          driverAssignedCount: 0,
-          status: 'Pending',
-          createdDateTime: new Date('2024-01-09T10:15:00').toISOString(),
-          updatedDateTime: new Date('2024-01-09T10:15:00').toISOString()
-        }
-      ]
-    },
-    {
-      id: 2,
-      title: 'Assigned',
-      cards: [
-        {
-          jobId: 'JOB-1704800003-789',
-          parcelDescription: 'Medical Supplies',
-          pickupEntity: 'MedSupply Co',
-          pickupAddressLine1: '111 Crown St',
-          pickupAddressLine2: '',
-          pickupSuburbanArea: 'Central & South Central Suburbs',
-          pickupSuburb: 'Dianella',
-          deliveryEntity: 'City Hospital',
-          contact: '+61 2 9111 2222',
-          deliveryAddressLine1: '222 Health Ave',
-          deliveryAddressLine2: 'Building B',
-          deliverySuburbanArea: 'Southern Suburbs and Mandurah Region',
-          deliverySuburb: 'Port Kennedy',
-          priority: 'red',
-          chargingTo: 'Receiver',
-          pricing: 3,
-          manuallyInvoice: 'No',
-          source: 'Website',
-          createdBy: 'John Smith',
-          driverId: 'Driver-001',
-          driverAssignedCount: 1,
-          status: 'Assigned',
-          createdDateTime: new Date('2024-01-09T08:00:00').toISOString(),
-          updatedDateTime: new Date('2024-01-09T11:00:00').toISOString()
-        }
-      ]
-    },
-    {
-      id: 3,
-      title: 'In Transit',
-      cards: [
-        {
-          jobId: 'JOB-1704800004-012',
-          parcelDescription: 'Clothing - Fashion Items',
-          pickupEntity: 'Fashion Boutique',
-          pickupAddressLine1: '555 Oxford St',
-          pickupAddressLine2: 'Shop 2',
-          pickupSuburbanArea: 'Eastern Suburbs',
-          pickupSuburb: 'Bennett Springs',
-          deliveryEntity: 'Customer Residence',
-          contact: '+61 4 3333 4444',
-          deliveryAddressLine1: '888 Park Rd',
-          deliveryAddressLine2: '',
-          deliverySuburbanArea: 'Western Suburbs',
-          deliverySuburb: 'Watermans Bay',
-          priority: 'green',
-          chargingTo: 'Sender',
-          pricing: 1,
-          manuallyInvoice: 'No',
-          source: 'Website',
-          createdBy: 'Sarah Johnson',
-          driverId: 'Driver-002',
-          driverAssignedCount: 1,
-          status: 'In Transit',
-          createdDateTime: new Date('2024-01-08T14:30:00').toISOString(),
-          updatedDateTime: new Date('2024-01-09T09:00:00').toISOString()
-        }
-      ]
-    },
-    {
-      id: 4,
-      title: 'Completed',
-      cards: [
-        {
-          jobId: 'JOB-1704800005-345',
-          parcelDescription: 'Books - Educational Materials',
-          pickupEntity: 'University Bookstore',
-          pickupAddressLine1: '999 Campus Dr',
-          pickupAddressLine2: 'Building 5',
-          pickupSuburbanArea: 'Southern Suburbs and Mandurah Region',
-          pickupSuburb: 'Baldivis',
-          deliveryEntity: 'Student Housing',
-          contact: '+61 4 5555 6666',
-          deliveryAddressLine1: '777 College Ave',
-          deliveryAddressLine2: 'Room 101',
-          deliverySuburbanArea: 'Central & South Central Suburbs',
-          deliverySuburb: 'Yokine',
-          priority: 'green',
-          chargingTo: 'Receiver',
-          pricing: 1,
-          manuallyInvoice: 'No',
-          source: 'Phone',
-          createdBy: 'John Smith',
-          driverId: 'Driver-003',
-          driverAssignedCount: 1,
-          status: 'Completed',
-          createdDateTime: new Date('2024-01-07T10:00:00').toISOString(),
-          updatedDateTime: new Date('2024-01-08T15:30:00').toISOString()
-        }
-      ]
-    }
-  ]);
 
   const [draggedCard, setDraggedCard] = useState<Card | null>(null);
   const [draggedFromBoard, setDraggedFromBoard] = useState<number | null>(null);
@@ -248,45 +46,25 @@ export default function TrelloDashboard() {
     e.preventDefault();
   };
 
-  const handleDrop = (targetBoardId: number) => {
+  const handleDrop = async (targetBoardId: number) => {
     if (!draggedCard || !draggedFromBoard) return;
 
     const targetBoard = boards.find(b => b.id === targetBoardId);
     if (!targetBoard) return;
     const newStatus = targetBoard.title;
 
-    setBoards(prev => {
-      const newBoards = prev.map(board => {
-        if (board.id === draggedFromBoard) {
-          return {
-            ...board,
-            cards: board.cards.filter(c => c.jobId !== draggedCard.jobId)
-          };
-        }
-        if (board.id === targetBoardId) {
-          const updatedCard = {
-            ...draggedCard,
-            status: newStatus,
-            updatedDateTime: new Date().toISOString()
-          };
-          return {
-            ...board,
-            cards: [...board.cards, updatedCard]
-          };
-        }
-        return board;
-      });
-      return newBoards;
-    });
+    if (draggedFromBoard !== targetBoardId) {
+      await moveCard(draggedCard, targetBoardId, newStatus);
+    }
 
     setDraggedCard(null);
     setDraggedFromBoard(null);
   };
 
-  const addCard = (boardId: number) => {
+  const handleAddCard = async (boardId: number) => {
     const board = boards.find(b => b.id === boardId);
     if (!board) return;
-    const newCard = {
+    const newCard: Card = {
       jobId: generateJobId(),
       parcelDescription: 'New Parcel',
       pickupEntity: '',
@@ -313,21 +91,12 @@ export default function TrelloDashboard() {
       updatedDateTime: new Date().toISOString()
     };
 
-    setBoards(prev => prev.map(b =>
-      b.id === boardId
-        ? { ...b, cards: [...b.cards, newCard] }
-        : b
-    ));
-
+    await addCard(boardId, newCard);
     setShowNewCard(null);
   };
 
-  const deleteCard = (boardId: number, jobId: string) => {
-    setBoards(prev => prev.map(board =>
-      board.id === boardId
-        ? { ...board, cards: board.cards.filter(c => c.jobId !== jobId) }
-        : board
-    ));
+  const handleDeleteCard = async (boardId: number, jobId: string) => {
+    await deleteCard(boardId, jobId);
   };
 
   const openEditModal = (card: Card, boardId: number) => {
@@ -360,26 +129,17 @@ export default function TrelloDashboard() {
     setEditingBoardId(null);
   };
 
-  const saveCardChanges = () => {
+  const saveCardChanges = async () => {
     if (!editingBoardId || !editingCard) return;
-    setBoards(prev => prev.map(board =>
-      board.id === editingBoardId
-        ? {
-          ...board,
-          cards: board.cards.map(card =>
-            card.jobId === editingCard.jobId
-              ? {
-                ...card,
-                ...editForm,
-                driverAssignedCount: editForm.driverId && !card.driverId ? card.driverAssignedCount + 1 : card.driverAssignedCount,
-                updatedDateTime: new Date().toISOString()
-              }
-              : card
-          )
-        }
-        : board
-    ));
 
+    const updatedCard: Card = {
+      ...editingCard,
+      ...editForm,
+      driverAssignedCount: editForm.driverId && !editingCard.driverId ? editingCard.driverAssignedCount + 1 : editingCard.driverAssignedCount,
+      updatedDateTime: new Date().toISOString()
+    };
+
+    await updateCard(updatedCard);
     closeEditModal();
   };
 
@@ -401,6 +161,14 @@ export default function TrelloDashboard() {
       minute: '2-digit'
     });
   };
+
+  if (isLoading) {
+    return <div className="min-h-screen bg-gradient-to-br from-blue-600 to-purple-600 p-6 flex items-center justify-center text-white">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="min-h-screen bg-gradient-to-br from-blue-600 to-purple-600 p-6 flex items-center justify-center text-white">Error: {error}</div>;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-600 to-purple-600 p-6">
@@ -446,7 +214,7 @@ export default function TrelloDashboard() {
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        deleteCard(board.id, card.jobId);
+                        handleDeleteCard(board.id, card.jobId);
                       }}
                       className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 transition-opacity"
                     >
@@ -491,7 +259,7 @@ export default function TrelloDashboard() {
               <div className="bg-white rounded-lg p-3 shadow-sm">
                 <div className="flex gap-2">
                   <button
-                    onClick={() => addCard(board.id)}
+                    onClick={() => handleAddCard(board.id)}
                     className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700"
                   >
                     Add Job
