@@ -12,7 +12,7 @@ class MockBoardApi implements BoardApi {
     private boards: Board[] = [
         {
             id: 1,
-            title: 'Pending',
+            title: 'New - from website',
             cards: [
                 {
                     jobId: 'JOB-1704800001-123',
@@ -36,10 +36,16 @@ class MockBoardApi implements BoardApi {
                     createdBy: 'John Smith',
                     driverId: '',
                     driverAssignedCount: 0,
-                    status: 'Pending',
+                    status: 'New - from website',
                     createdDateTime: new Date('2024-01-09T09:30:00').toISOString(),
                     updatedDateTime: new Date('2024-01-09T09:30:00').toISOString()
-                },
+                }
+            ]
+        },
+        {
+            id: 2,
+            title: 'New - from office',
+            cards: [
                 {
                     jobId: 'JOB-1704800002-456',
                     parcelDescription: 'Documents - Legal Papers',
@@ -62,15 +68,15 @@ class MockBoardApi implements BoardApi {
                     createdBy: 'Sarah Johnson',
                     driverId: '',
                     driverAssignedCount: 0,
-                    status: 'Pending',
+                    status: 'New - from office',
                     createdDateTime: new Date('2024-01-09T10:15:00').toISOString(),
                     updatedDateTime: new Date('2024-01-09T10:15:00').toISOString()
                 }
             ]
         },
         {
-            id: 2,
-            title: 'Assigned',
+            id: 3,
+            title: 'Assigned to Driver',
             cards: [
                 {
                     jobId: 'JOB-1704800003-789',
@@ -94,15 +100,20 @@ class MockBoardApi implements BoardApi {
                     createdBy: 'John Smith',
                     driverId: 'Driver-001',
                     driverAssignedCount: 1,
-                    status: 'Assigned',
+                    status: 'Assigned to Driver',
                     createdDateTime: new Date('2024-01-09T08:00:00').toISOString(),
                     updatedDateTime: new Date('2024-01-09T11:00:00').toISOString()
                 }
             ]
         },
         {
-            id: 3,
-            title: 'In Transit',
+            id: 4,
+            title: 'Reassigned',
+            cards: []
+        },
+        {
+            id: 5,
+            title: 'In-Progress',
             cards: [
                 {
                     jobId: 'JOB-1704800004-012',
@@ -126,14 +137,14 @@ class MockBoardApi implements BoardApi {
                     createdBy: 'Sarah Johnson',
                     driverId: 'Driver-002',
                     driverAssignedCount: 1,
-                    status: 'In Transit',
+                    status: 'In-Progress',
                     createdDateTime: new Date('2024-01-08T14:30:00').toISOString(),
                     updatedDateTime: new Date('2024-01-09T09:00:00').toISOString()
                 }
             ]
         },
         {
-            id: 4,
+            id: 6,
             title: 'Completed',
             cards: [
                 {
