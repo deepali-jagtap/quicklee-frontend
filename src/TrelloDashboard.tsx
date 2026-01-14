@@ -7,10 +7,14 @@ export default function TrelloDashboard() {
     jobId: string;
     parcelDescription: string;
     pickupEntity: string;
-    pickupAddress: string;
+    pickupAddressLine1: string;
+    pickupAddressLine2: string;
+    pickupArea: string;
     deliveryEntity: string;
+    deliveryAddressLine1: string;
+    deliveryAddressLine2: string;
+    deliveryArea: string;
     contact: string;
-    deliveryAddress: string;
     priority: string;
     chargingTo: string;
     pricing: number;
@@ -38,6 +42,8 @@ export default function TrelloDashboard() {
     { id: 5, name: 'Bulk Delivery', price: 150.00 }
   ];
 
+  const areaOptions = ['are1', 'are2', 'area3'];
+
   const generateJobId = () => {
     return `JOB-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
   };
@@ -51,10 +57,14 @@ export default function TrelloDashboard() {
           jobId: 'JOB-1704800001-123',
           parcelDescription: 'Electronics Package - Laptop',
           pickupEntity: 'Tech Store Sydney',
-          pickupAddress: '123 George St, Sydney NSW 2000',
+          pickupAddressLine1: '123 George St',
+          pickupAddressLine2: '',
+          pickupArea: 'are1',
           deliveryEntity: 'ABC Corp',
           contact: '+61 2 9876 5432',
-          deliveryAddress: '456 Pitt St, Sydney NSW 2000',
+          deliveryAddressLine1: '456 Pitt St',
+          deliveryAddressLine2: 'Level 5',
+          deliveryArea: 'are2',
           priority: 'red',
           chargingTo: 'Receiver',
           pricing: 1,
@@ -71,10 +81,14 @@ export default function TrelloDashboard() {
           jobId: 'JOB-1704800002-456',
           parcelDescription: 'Documents - Legal Papers',
           pickupEntity: 'Law Firm Melbourne',
-          pickupAddress: '789 Collins St, Melbourne VIC 3000',
+          pickupAddressLine1: '789 Collins St',
+          pickupAddressLine2: 'Suite 10',
+          pickupArea: 'area3',
           deliveryEntity: 'Court House',
           contact: '+61 3 8765 4321',
-          deliveryAddress: '321 Lonsdale St, Melbourne VIC 3000',
+          deliveryAddressLine1: '321 Lonsdale St',
+          deliveryAddressLine2: '',
+          deliveryArea: 'are1',
           priority: 'yellow',
           chargingTo: 'Sender',
           pricing: 2,
@@ -97,10 +111,14 @@ export default function TrelloDashboard() {
           jobId: 'JOB-1704800003-789',
           parcelDescription: 'Medical Supplies',
           pickupEntity: 'MedSupply Co',
-          pickupAddress: '111 Crown St, Sydney NSW 2010',
+          pickupAddressLine1: '111 Crown St',
+          pickupAddressLine2: '',
+          pickupArea: 'are2',
           deliveryEntity: 'City Hospital',
           contact: '+61 2 9111 2222',
-          deliveryAddress: '222 Health Ave, Sydney NSW 2010',
+          deliveryAddressLine1: '222 Health Ave',
+          deliveryAddressLine2: 'Building B',
+          deliveryArea: 'are3',
           priority: 'red',
           chargingTo: 'Receiver',
           pricing: 3,
@@ -123,10 +141,14 @@ export default function TrelloDashboard() {
           jobId: 'JOB-1704800004-012',
           parcelDescription: 'Clothing - Fashion Items',
           pickupEntity: 'Fashion Boutique',
-          pickupAddress: '555 Oxford St, Sydney NSW 2021',
+          pickupAddressLine1: '555 Oxford St',
+          pickupAddressLine2: 'Shop 2',
+          pickupArea: 'are1',
           deliveryEntity: 'Customer Residence',
           contact: '+61 4 3333 4444',
-          deliveryAddress: '888 Park Rd, Sydney NSW 2022',
+          deliveryAddressLine1: '888 Park Rd',
+          deliveryAddressLine2: '',
+          deliveryArea: 'are2',
           priority: 'green',
           chargingTo: 'Sender',
           pricing: 1,
@@ -149,10 +171,14 @@ export default function TrelloDashboard() {
           jobId: 'JOB-1704800005-345',
           parcelDescription: 'Books - Educational Materials',
           pickupEntity: 'University Bookstore',
-          pickupAddress: '999 Campus Dr, Sydney NSW 2006',
+          pickupAddressLine1: '999 Campus Dr',
+          pickupAddressLine2: 'Building 5',
+          pickupArea: 'are3',
           deliveryEntity: 'Student Housing',
           contact: '+61 4 5555 6666',
-          deliveryAddress: '777 College Ave, Sydney NSW 2007',
+          deliveryAddressLine1: '777 College Ave',
+          deliveryAddressLine2: 'Room 101',
+          deliveryArea: 'are1',
           priority: 'green',
           chargingTo: 'Receiver',
           pricing: 1,
@@ -177,10 +203,14 @@ export default function TrelloDashboard() {
   const [editForm, setEditForm] = useState({
     parcelDescription: '',
     pickupEntity: '',
-    pickupAddress: '',
+    pickupAddressLine1: '',
+    pickupAddressLine2: '',
+    pickupArea: 'are1',
     deliveryEntity: '',
+    deliveryAddressLine1: '',
+    deliveryAddressLine2: '',
+    deliveryArea: 'are1',
     contact: '',
-    deliveryAddress: '',
     priority: 'green',
     chargingTo: 'Sender',
     pricing: 1,
@@ -240,10 +270,14 @@ export default function TrelloDashboard() {
       jobId: generateJobId(),
       parcelDescription: 'New Parcel',
       pickupEntity: '',
-      pickupAddress: '',
+      pickupAddressLine1: '',
+      pickupAddressLine2: '',
+      pickupArea: 'are1',
       deliveryEntity: '',
+      deliveryAddressLine1: '',
+      deliveryAddressLine2: '',
+      deliveryArea: 'are1',
       contact: '',
-      deliveryAddress: '',
       priority: 'green',
       chargingTo: 'Sender',
       pricing: 1,
@@ -280,10 +314,14 @@ export default function TrelloDashboard() {
     setEditForm({
       parcelDescription: card.parcelDescription,
       pickupEntity: card.pickupEntity,
-      pickupAddress: card.pickupAddress,
+      pickupAddressLine1: card.pickupAddressLine1,
+      pickupAddressLine2: card.pickupAddressLine2,
+      pickupArea: card.pickupArea,
       deliveryEntity: card.deliveryEntity,
+      deliveryAddressLine1: card.deliveryAddressLine1,
+      deliveryAddressLine2: card.deliveryAddressLine2,
+      deliveryArea: card.deliveryArea,
       contact: card.contact,
-      deliveryAddress: card.deliveryAddress,
       priority: card.priority,
       chargingTo: card.chargingTo,
       pricing: card.pricing,
@@ -397,12 +435,18 @@ export default function TrelloDashboard() {
                       <Package size={14} className="text-blue-500 mt-0.5 flex-shrink-0" />
                       <div>
                         <div className="font-medium text-gray-800">{card.pickupEntity}</div>
+                        <div className="text-gray-500 text-xs">
+                          {[card.pickupAddressLine1, card.pickupAddressLine2, card.pickupArea].filter(Boolean).join(', ')}
+                        </div>
                       </div>
                     </div>
                     <div className="flex items-start gap-2">
                       <MapPin size={14} className="text-green-500 mt-0.5 flex-shrink-0" />
                       <div>
                         <div className="font-medium text-gray-800">{card.deliveryEntity}</div>
+                        <div className="text-gray-500 text-xs">
+                          {[card.deliveryAddressLine1, card.deliveryAddressLine2, card.deliveryArea].filter(Boolean).join(', ')}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -525,14 +569,43 @@ export default function TrelloDashboard() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Pickup Address
+                    Pickup Address Line 1
                   </label>
                   <input
                     type="text"
-                    value={editForm.pickupAddress}
-                    onChange={(e) => setEditForm({ ...editForm, pickupAddress: e.target.value })}
+                    value={editForm.pickupAddressLine1}
+                    onChange={(e) => setEditForm({ ...editForm, pickupAddressLine1: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Pickup Address Line 2
+                  </label>
+                  <input
+                    type="text"
+                    value={editForm.pickupAddressLine2}
+                    onChange={(e) => setEditForm({ ...editForm, pickupAddressLine2: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Pickup Area
+                  </label>
+                  <select
+                    value={editForm.pickupArea}
+                    onChange={(e) => setEditForm({ ...editForm, pickupArea: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                  >
+                    {areaOptions.map(area => (
+                      <option key={area} value={area}>
+                        {area}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 {/* Delivery Details */}
@@ -569,14 +642,43 @@ export default function TrelloDashboard() {
 
                 <div className="col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Delivery Address
+                    Delivery Address Line 1
                   </label>
                   <input
                     type="text"
-                    value={editForm.deliveryAddress}
-                    onChange={(e) => setEditForm({ ...editForm, deliveryAddress: e.target.value })}
+                    value={editForm.deliveryAddressLine1}
+                    onChange={(e) => setEditForm({ ...editForm, deliveryAddressLine1: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Delivery Address Line 2
+                  </label>
+                  <input
+                    type="text"
+                    value={editForm.deliveryAddressLine2}
+                    onChange={(e) => setEditForm({ ...editForm, deliveryAddressLine2: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Delivery Area
+                  </label>
+                  <select
+                    value={editForm.deliveryArea}
+                    onChange={(e) => setEditForm({ ...editForm, deliveryArea: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                  >
+                    {areaOptions.map(area => (
+                      <option key={area} value={area}>
+                        {area}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 {/* Job Configuration */}
